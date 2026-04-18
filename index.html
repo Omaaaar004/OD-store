@@ -864,13 +864,44 @@
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
-      nav { padding: 0 1rem; }
-      .nav-links { display: none; }
-      .hero { margin-top: 70px; padding: 2rem 1rem; }
-      .products-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.5rem; }
-      .cart-sidebar { width: 100%; right: -100%; }
-      .ticker-item { padding: 0 1rem; font-size: 11px; }
-      .section-title { font-size: clamp(32px, 6vw, 48px); }
+      nav {
+         padding: 0 1rem;
+         }
+      .nav-links { 
+        display: none; 
+      }
+      .hero { 
+        margin-top: 70px; 
+        padding: 2rem 1rem; 
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+      }
+      .hero-content {
+        text-align: center;
+        max-width: 100%;
+      }
+      .hero-buttons {
+        justify-content: center;
+      }
+      .hero-logo-side img{
+        width: min(260px, 80vw); 
+      }
+      .products-grid { 
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+        gap: 1.5rem; 
+      }
+      .cart-sidebar { 
+        width: 100%; 
+        right: -100%; 
+      }
+      .ticker-item { 
+        padding: 0 1rem; 
+        font-size: 11px; 
+      }
+      .section-title { 
+        font-size: clamp(32px, 6vw, 48px);
+       }
     }
   </style>
 </head>
