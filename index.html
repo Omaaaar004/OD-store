@@ -185,6 +185,7 @@
       overflow: hidden;
       margin-top: 70px;
       padding: 4rem 2rem;
+      gap: 4rem;
     }
 
     .hero::before {
@@ -217,8 +218,36 @@
       position: relative;
       z-index: 2;
       max-width: 1000px;
-      text-align: center;
+      text-align: left;
       animation: fadeInUp 0.8s ease-out;
+      flex-shrink: 0;
+    }
+
+    .hero-logo-side {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero-logo-side img {
+      width: min(400px, 100%);
+      height: auto;
+      filter: drop-shadow(0 0 60px rgba(0, 179, 65, 0.5)) drop-shadow(0 0 120px rgba(0, 179, 65, 0.2));
+      animation: logoPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes logoPulse {
+      0%, 100% {
+        filter: drop-shadow(0 0 60px rgba(0, 179, 65, 0.5)) drop-shadow(0 0 120px rgba(0, 179, 65, 0.2));
+        transform: scale(1);}
+        50% {
+          filter: drop-shadow(0 0 90px rgba(0, 179, 65, 0.8)) drop-shadow(0 0 160px rgba(0, 179, 65, 0.35));
+          transform: scale(1.04);
+        }
     }
 
     @keyframes fadeInUp {
@@ -234,7 +263,9 @@
       text-transform: uppercase;
       color: var(--vert);
       margin-bottom: 1.5rem;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       padding: 8px 20px;
       border: 2px solid var(--vert);
       border-radius: 50px;
@@ -259,14 +290,12 @@
       margin-bottom: 3rem;
       font-weight: 500;
       max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     .hero-buttons {
       display: flex;
       gap: 1.5rem;
-      justify-content: center;
+      justify-content: flex-start;
       flex-wrap: wrap;
       margin-bottom: 3rem;
     }
@@ -867,7 +896,7 @@
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- Hero -->
   <section class="hero">
     <div class="hero-content">
       <div class="hero-tag">🟢 Boutique Officielle 🟢</div>
@@ -878,23 +907,27 @@
         <button class="btn-secondary" onclick="visitInstagram()">Suivre sur Instagram</button>
       </div>
     </div>
-
-    <div class="ticker">
-      <div class="ticker-inner">
-        <span class="ticker-item">⚽ OLYMPIC DCHEIRA - BOTOLA PRO ⚽</span>
-        <span class="ticker-item">•</span>
-        <span class="ticker-item">VÊTEMENTS OFFICIELS & AUTHENTIQUES</span>
-        <span class="ticker-item">•</span>
-        <span class="ticker-item">QUALITÉ PREMIUM • PRIX COMPÉTITIFS</span>
-        <span class="ticker-item">•</span>
-        <span class="ticker-item">SOUTIENS TON CLUB AVEC STYLE</span>
-        <span class="ticker-item">•</span>
-        <span class="ticker-item">⚽ OLYMPIC DCHEIRA - BOTOLA PRO ⚽</span>
-      </div>
+    <div class="hero-logo-side">
+        <img src="Olympique_dcheira_logo-removebg-preview_2.png" alt="Olympic Dcheira">
     </div>
   </section>
 
-  <!-- STORE -->
+  <!--Ticker-->
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span class="ticker-item">⚽ OLYMPIC DCHEIRA - BOTOLA PRO ⚽</span>
+      <span class="ticker-item">•</span>
+      <span class="ticker-item">VÊTEMENTS OFFICIELS & AUTHENTIQUES</span>
+      <span class="ticker-item">•</span>
+      <span class="ticker-item">QUALITÉ PREMIUM • PRIX COMPÉTITIFS</span>
+      <span class="ticker-item">•</span>
+      <span class="ticker-item">SOUTIENS TON CLUB AVEC STYLE</span>
+      <span class="ticker-item">•</span>
+      <span class="ticker-item">⚽ OLYMPIC DCHEIRA - BOTOLA PRO ⚽</span>
+      </div>
+    </div>
+
+  <!-- Store -->
   <section class="store" id="store">
     <div class="section-header">
       <div class="section-tag">Collections</div>
@@ -934,7 +967,7 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
+  <!-- Footer -->
   <footer>
     <div class="footer-content">
       <div class="footer-col">
