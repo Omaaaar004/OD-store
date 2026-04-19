@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olympic Dcheira | Le Club</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        :root {
+            --vert: #00B341;
+            --vert-fonce: #008f33;
+            --vert-clair: #00ff6622;
+            --blanc: #ffffff;
+            --gris-fonce: #1a1a1a;
+            --gris-sombre: #0a0a0a;
+            --gris-surface: #242424;
+            --gris-text: #b0b0b0;
+            --gris-light: #707070;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body{
+            background: linear-gradient(135deg, var(--gris-sombre) 0%, #0d0d0d 100%);
+            color: var(--blanc);
+            font-family: 'Barlow', sans-serif;
+            line-height: 1.6;
+        }
+        ::-webkit-scrollbar {width: 8px;}
+        ::-webkit-scrollbar-track { background: var(--gris-sombre); }
+        ::-webkit-scrollbar-thumb {
+            background: var(--vert);
+            border-radius: 4px;
+        }
+
+        nav {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            z-index: 100;
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+            padding: 0 2rem;
+            height: 70px;
+            background: linear-gradient(180deg, rgba(10,10,10,0.98) 0%, rgba(10,10,10,0.95) 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--vert);
+            box-shadow: 0 4px 20px rgba(0,179,65,0.15);
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+        .nav-logo {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .nav-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .nav-text {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-size: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase; color: var(--blanc);
+        }
+        .nav-text span {
+            color: var(--vert);
+        }
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gris-text);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--vert);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover {
+            color: var(--vert);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-links a.active {
+            color: var(--vert);
+        }
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        
+
+        .page-header {
+            margin-top: 70px;
+            padding: 5rem 2rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 800px 400px at 50% 50%, var(--vert-clair) 0%, transparent 60%);
+            animation: pulse 6s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.4
+            }
+            50% {
+                opacity: 0.9;
+            }
+        }
+        .page-tag {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--vert);
+            display: inline-block;
+            padding: 6px 20px;
+            border: 2px solid var(--vert);
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .page-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(48px, 10vw, 100px);
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1;
+            letter-spacing: -2px;
+            position: relative;
+            z-index: 1;
+        }
+        .page-title span {
+            color: var(--vert);
+        }
+
+        .ticker {
+            background: linear-gradient(90deg, var(--vert) 0%, #00ff6b 100%);
+            color: var(--blanc);
+            padding: 0.8rem 0;
+            overflow: hidden;
+            border-top: 3px solid rgba(255,255,255,0.3);
+            border-bottom: 3px solid rgba(255,255,255,0.3);
+        }
+        .ticker-inner {
+            display: flex;
+            gap: 0;
+            animation: scroll 20s linear infinite;
+            white-space: nowrap;
+        }
+        @keyframes scroll {
+            0% {
+                transform: translateY(0);
+            }
+            100%{
+                transform: translateX(-50%);
+            }
+        }
+        .ticker-item {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-weight: 900;
+        font-size: 13px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        padding: 0 2.5rem;
+        flex-shrink: 0;
+        }
+
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .histoire {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            margin-bottom: 6rem;
+        }
+        .histoire-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .histoire-logo img {
+            width: min(320px, 100%);
+            filter:drop-shadow(0 0 50px rgba(0,179,65,0.4));
+            animation: logoPulse 4s ease-in-out infinite;
+        }
+        @keyframes logoPulse {
+            0%,100% {
+                filter: drop-shadow(0 0 50px rgba(0,179,65,0.4));
+                transform: scale(1);
+            }
+            50% {
+                filter: drop-shadow(0 0 80px rgba(0,179,65,0.7));
+                transform: scale(1.03);
+            }
+        }
+        .section-label {
+            font-family: 'Barlow Condensed',sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--vert);
+            display: inline-block;
+            padding: 5px 16px;
+            border: 1px solid var(--vert);
+            border-radius: 50px;
+            margin-bottom: 1rem;
+        }
+        .section-heading {
+            font-family: 'Barlow Consended',sans-serif;
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1;
+            letter-spacing: -1px;
+            margin-bottom: 1.5rem;
+        }
+        .section-heading span {
+            color: var(--vert);
+        }
+        .histoire-text p {
+            color: var(--gris-text);
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 1.2rem;
+        }
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+            margin-bottom: 6rem;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, var(--gris-fonce) 0%, var(--gris-sombre) 100%);
+            border: 2px solid var(--gris-surface); 
+            border-radius: 8px;
+            padding: 2rem; 
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .stat-card:hover {
+            border-color: var(--vert); 
+            transform: translateY(-5px); 
+            box-shadow: 0 15px 40px var(--vert-clair); 
+        }
+        .stat-number {
+            font-family: 'Barlow Condensed', sans-serif; 
+            font-size: 48px; 
+            font-weight: 900;
+            color: var(--vert); 
+            line-height: 1; 
+            margin-bottom: 0.5rem;
+        }
+        .stat-label {
+            font-size: 12px; 
+            font-weight: 600; 
+            letter-spacing: 2px;
+            text-transform: uppercase; 
+            color: var(--gris-text);
+        }
+
+        .palmares {
+         margin-bottom: 6rem; 
+        }
+        .palmares-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 1.5rem;
+             margin-top: 3rem; 
+        }
+        .palmares-card {
+            background: linear-gradient(135deg, var(--gris-fonce) 0%, var(--gris-sombre) 100%);
+            border: 2px solid var(--gris-surface); border-radius: 8px;
+            padding: 2rem; display: flex; align-items: center; gap: 1.5rem;
+            transition: all 0.3s;
+        }
+        .palmares-card:hover { 
+            border-color: var(--vert); 
+            transform: translateY(-4px); 
+            box-shadow: 0 15px 40px var(--vert-clair); 
+        }
+        .palmares-icon {
+             font-size: 40px; 
+            flex-shrink: 0; 
+        }
+        .palmares-title {
+            font-family: 'Barlow Condensed', sans-serif; 
+            font-size: 18px; 
+            font-weight: 900;
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            margin-bottom: 0.3rem;
+        }
+        .palmares-year { 
+                 font-size: 13px; 
+                 color: var(--vert); 
+                 font-weight: 600; 
+        }
+
+        .staff { margin-bottom: 6rem; }
+        .staff-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+            gap: 2rem; 
+            margin-top: 3rem; 
+        }
+        .staff-card {
+            background: linear-gradient(135deg, var(--gris-fonce) 0%, var(--gris-sombre) 100%);
+            border: 2px solid var(--gris-surface); 
+            border-radius: 8px;
+            padding: 2rem; 
+            text-align: center; 
+            transition: all 0.3s;
+        }
+        .staff-card:hover { 
+            border-color: var(--vert); 
+            transform: translateY(-5px); 
+            box-shadow: 0 15px 40px var(--vert-clair); }
+        .staff-avatar {
+            width: 80px; 
+            height: 80px; 
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gris-surface), var(--gris-fonce));
+            border: 3px solid var(--vert); 
+            display: flex; 
+            align-items: center;
+            justify-content: center; 
+            font-size: 36px; 
+            margin: 0 auto 1rem;
+        }
+        .staff-name {
+            font-family: 'Barlow Condensed', sans-serif; 
+            font-size: 18px; 
+            font-weight: 900;
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            margin-bottom: 0.3rem;
+        }
+        .staff-role { 
+            font-size: 12px; 
+            color: var(--vert); 
+            font-weight: 600; 
+            letter-spacing: 1.5px; 
+            text-transform: uppercase; 
+        }
+
+
+        .joueurs {
+             margin-bottom: 6rem; 
+        }
+        .joueurs-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+            gap: 1.5rem; 
+            margin-top: 3rem; 
+        }
+        .joueur-card {
+            background: linear-gradient(135deg, var(--gris-fonce) 0%, var(--gris-sombre) 100%);
+            border: 2px solid var(--gris-surface); 
+            border-radius: 8px;
+            padding: 1.5rem; 
+            text-align: center; 
+            transition: all 0.3s; 
+            position: relative;
+        }
+        .joueur-card:hover { 
+            border-color: var(--vert); 
+            transform: translateY(-4px); 
+            box-shadow: 0 12px 30px var(--vert-clair); 
+        }
+        .joueur-numero {
+            font-family: 'Barlow Condensed', sans-serif; 
+            font-size: 36px; 
+            font-weight: 900;
+            color: var(--vert-clair); 
+            position: absolute; 
+            top: 10px; 
+            right: 14px;
+            line-height: 1; 
+            color: rgba(0,179,65,0.2);
+        }
+        .joueur-emoji {
+             font-size: 40px; 
+             margin-bottom: 0.8rem; 
+             display: block; 
+            }
+        .joueur-nom {
+            font-family: 'Barlow Condensed', sans-serif; 
+            font-size: 15px; 
+            font-weight: 900;
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+            margin-bottom: 0.4rem; 
+            line-height: 1.2;
+        }
+        .joueur-poste {
+            font-size: 11px; color: var(--vert); 
+            font-weight: 600;
+            letter-spacing: 1.5px; 
+            text-transform: uppercase;
+        }
+        footer {
+            background: linear-gradient(180deg, var(--gris-fonce) 0%, var(--gris-sombre) 100%);
+            border-top: 3px solid var(--vert); 
+            padding: 4rem 2rem;
+        }
+        .footer-content {
+            max-width: 1200px; 
+            margin: 0 auto;
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem; 
+            margin-bottom: 3rem;
+        }
+        .footer-col h3 {
+            font-family: 'Barlow Condensed', sans-serif; 
+            font-weight: 900;
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem; 
+            color: var(--vert); 
+            font-size: 16px;
+        }
+        .footer-col p, .footer-col li { 
+            color: var(--gris-text); 
+            font-size: 14px; 
+            margin-bottom: 0.8rem; 
+            line-height: 1.6; 
+        }
+        .footer-col ul { 
+            list-style: none; 
+        }
+        .footer-col a { 
+            color: var(--gris-text);
+            text-decoration: none; 
+            transition: all 0.3s; 
+        }
+        .footer-col a:hover { 
+            color: var(--vert); 
+        }
+        .footer-bottom { 
+            border-top: 2px solid var(--gris-surface); 
+            padding-top: 2rem; 
+            text-align: center; 
+            color: var(--gris-light); 
+            font-size: 13px; 
+           
+        }
+ 
+        @media (max-width: 768px) {
+             nav { 
+                padding: 0 1rem; 
+            }
+            .nav-links { 
+                display: none; 
+            }
+            .histoire { 
+                grid-template-columns: 1fr; gap: 2rem; 
+            }
+            .histoire-logo { 
+                order: -1; 
+            }
+            .histoire-logo img { 
+                width: 200px; 
+            }
+            .stats-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+            }
+            .joueurs-grid { 
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+            }
+    }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="club.html" class="nav-brand">
+            <div class="nav-logo">
+                <img src="Olympique_dcheira_logo-removebg-preview.png" alt="Olympic Dcheira Logo">
+            </div>
+            <div class="nav-text">
+                Olympic <span>Dcheira</span>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#store">Boutique</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="page-header">
+        <div class="page-tag">⚽ Depuis 1940</div>
+        <h1 class="page-title">Club Olympic <span>Dcheira</span></h1>
+    </div>
+    <div class="ticker">
+        <div class="ticker-inner">
+            <span class="ticker-item">⚽ OLYMPIC DCHEIRA - BOTOLA PRO 2025/2026 ⚽</span>
+            <span class="ticker-item">•</span>
+            <span class="ticker-item">🏆 CHAMPIONS EXCELLENCE CUP 2025</span>
+            <span class="ticker-item">•</span>
+            <span class="ticker-item">🌟 PREMIÈRE SAISON EN BOTOLA PRO</span>
+            <span class="ticker-item">•</span>
+            <span class="ticker-item">💚 DCHEIRA EL JIHADIA - INEZGANE</span>
+            <span class="ticker-item">•</span>
+            <span class="ticker-item">⚽ OLYMPIC DCHEIRA - BOTOLA PRO 2025/2026 ⚽</span>
+            <span class="ticker-item">•</span>
+            <span class="ticker-item">🏆 CHAMPIONS EXCELLENCE CUP 2025</span>
+            <span class="ticker-item">•</span>
+            <span class="ticker-item">🌟 PREMIÈRE SAISON EN BOTOLA PRO</span>
+            <span class="ticker-item">•</span>
+            <span class="ticker-item">💚 DCHEIRA EL JIHADIA - INEZGANE</span>
+        </div>
+    </div>
+    <div class="main">
+        <div class="histoire">
+            <div class="histoire-logo">
+                <img src="Olympique_dcheira_logo-removebg-preview_2.png" alt="Olympic Dcheira">
+            </div>
+            <div class="histoire-text">
+                <div class="section-label">Notre histoire</div>
+                <h2 class="section-heading">Fondé en <span>1940</span></h2>
+                <p>Olympique Dcheira est un club de football marocain basé à Dcheira El Jihadia, aux portes d'Inezgane dans la région Souss-Massa. Fondé en 1940, le club est reconnu pour son développement de talents locaux et son engagement envers la communauté.</p>
+                <p>Après des années passées en Botola D2, le club a réalisé son rêve historique en 2025 en accédant pour la toute première fois à la Botola Pro — l'élite du football marocain.</p>
+                <p>Le 26 juin 2025, Olympic Dcheira a remporté le titre inaugural de l'Excellence Cup face à US Touarga (2-1), confirmant son statut de club montant du football national.</p>
+            </div>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">1940</div>
+                <div class="stat-label">Année de Fondation</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2025</div>
+                <div class="stat-label">1ère Montée Botola Pro</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">🏆1</div>
+                <div class="stat-label">Exellence Cup</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">85+</div>
+                <div class="stat-label">Ans d'hHstoire</div>
+            </div>
+        </div>
+        <div class="palmares">
+            <div class="section-label">Palmarès</div>
+            <h2 class="section-heading">Nos <span>Titres</span></h2>
+            <div class="palmares-grid">
+                <div class="palmares-card">
+                    <div class="palmares-icon">🏆</div>
+                    <div>
+                        <div class="palmares-title">Excellence Cup</div>
+                        <div class="palmares-year">2025 — 1er titre national</div>
+                    </div>
+                </div>
+                <div class="palmares-card">
+                    <div class="palmares-icon">⬆️</div>
+                    <div>
+                        <div class="palmares-title">Promotion Botola Pro</div>
+                        <div class="palmares-year">2025 — Historique !</div>
+                    </div>
+                </div>
+                <div class="palmares-card">
+                    <div class="palmares-icon">🥇</div>
+                    <div>
+                        <div class="palmares-title">1ère Victoire Botola Pro</div>
+                        <div class="palmares-year">vs Kawkab Marrakech 2-1</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="staff">
+        <div class="section-label">Staff Technique</div>
+        <h2 class="section-heading">Notre <span>Staff</span></h2>
+        <div class="staff-grid">
+            <div class="staff-card">
+                <div class="staff-avatar">👨‍💼</div>
+                <div class="staff-name">Mourad Raji</div>
+                <div class="staff-role">Entraîneur Principal</div>
+            </div>
+            <div class="staff-card">
+                <div class="staff-avatar">🧤</div>
+                <div class="staff-name">Staff Gardiens</div>
+                <div class="staff-role">Entraîneur Gardiens</div>
+            </div>
+            <div class="staff-card">
+                <div class="staff-avatar">💪</div>
+                <div class="staff-name">Staff Physique</div>
+                <div class="staff-role">Préparateur Physique</div>
+            </div>
+            <div class="staff-card">
+                <div class="staff-avatar">🩺</div>
+                <div class="staff-name">Staff Médical</div>
+                <div class="staff-role">Médecins du Club</div>
+            </div>
+        </div>
+    </div>
+    <div class="joueurs">
+        <div class="section-label">Effectif</div>
+        <h2 class="section-heading">Nos <span>Joueurs</span></h2>
+        <div class="joueurs-grid">
+            <div class="joueur-card">
+                <span class="joueur-numero">1</span><span class="joueur-emoji">🧤</span>
+                <div class="joueur-nom">Mohamed Idar</div>
+                <div class="joueur-poste">Gardien</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">22</span><span class="joueur-emoji">🧤</span>
+                <div class="joueur-nom">Hafid Id Said</div>
+                <div class="joueur-poste">Gardien</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">12</span>
+                <span class="joueur-emoji">🧤</span>
+                <div class="joueur-nom">Tarik Koutoubi</div>
+                <div class="joueur-poste">Gardien</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">3</span>
+                <span class="joueur-emoji">🟢</span>
+                <div class="joueur-nom">Younes EL Khafi</div>
+                <div class="joueur-poste">Défenseur</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">4</span>
+                <span class="joueur-emoji">🟢</span>
+                <div class="joueur-nom">Ismail Soubai</div>
+                <div class="joueur-poste">Défenseur</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">5</span>
+                <span class="joueur-emoji">🟢</span>
+                <div class="joueur-nom">Ameur Aboujemaa</div>
+                <div class="joueur-poste">Défenseur</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">8</span>
+                <span class="joueur-emoji">🟢</span>
+                <div class="joueur-nom">Yassine boughaz</div>
+                <div class="joueur-poste">Défenseur</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">15</span>
+                <span class="joueur-emoji">🟢</span>
+                <div class="joueur-nom">Hicham Ait Braym</div>
+                <div class="joueur-poste">Défenseur</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">29</span>
+                <span class="joueur-emoji">🟢</span>
+                <div class="joueur-nom">Ibrahim Doumbia</div>
+                <div class="joueur-poste">Défenseur</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">32</span>
+                <span class="joueur-emoji">🟢</span>
+                <div class="joueur-nom">Cheick Keita</div>
+                <div class="joueur-poste">Défenseur</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">37</span>
+                <span class="joueur-emoji">🟢</span>
+                <div class="joueur-nom">Hamza Janan Allah</div>
+                <div class="joueur-poste">Défenseur</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">19</span>
+                <span class="joueur-emoji">🟢</span>
+                <div class="joueur-nom">Mouhcine Boumlik</div>
+                <div class="joueur-poste">Défenseur</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">33</span>
+                <span class="joueur-emoji">🟢</span>
+                <div class="joueur-nom">Abdullah Mani</div>
+                <div class="joueur-poste">Défenseur</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">2</span>
+                <span class="joueur-emoji">💚</span>
+                <div class="joueur-nom">Ayoub Bennadi</div>
+                <div class="joueur-poste">Milieu</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">13</span>
+                <span class="joueur-emoji">💚</span>
+                <div class="joueur-nom">Brahim Amzili</div>
+                <div class="joueur-poste">Milieu</div>
+            </div><div class="joueur-card">
+                <span class="joueur-numero">20</span>
+                <span class="joueur-emoji">💚</span>
+                <div class="joueur-nom">Mohmed Adjar</div>
+                <div class="joueur-poste">Milieu</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">21</span>
+                <span class="joueur-emoji">💚</span>
+                <div class="joueur-nom">Mounir El Gouj</div>
+                <div class="joueur-poste">Milieu</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">-</span>
+                <span class="joueur-emoji">💚</span>
+                <div class="joueur-nom">Khalid Raiss</div>
+                <div class="joueur-poste">Milieu</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">25</span>
+                <span class="joueur-emoji">💚</span>
+                <div class="joueur-nom">Omar Ouddah</div>
+                <div class="joueur-poste">Milieu</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">24</span>
+                <span class="joueur-emoji">💚</span>
+                <div class="joueur-nom">Youssef Fahmi</div>
+                <div class="joueur-poste">Milieu</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">6</span>
+                <span class="joueur-emoji">💚</span>
+                <div class="joueur-nom">Redouan Oubidar</div>
+                <div class="joueur-poste">Milieu</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">10</span>
+                <span class="joueur-emoji">💚</span>
+                <div class="joueur-nom">Hamza Saoud</div>
+                <div class="joueur-poste">Milieu</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">7</span>
+                <span class="joueur-emoji">💚</span>
+                <div class="joueur-nom">Mohamed Habbali</div>
+                <div class="joueur-poste">Milieu</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">-</span>
+                <span class="joueur-emoji">💚</span>
+                <div class="joueur-nom">Salah-Eddine Abderahim</div>
+                <div class="joueur-poste">Milieu</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">-</span>
+                <span class="joueur-emoji">💚</span>
+                <div class="joueur-nom">Anass Aziz</div>
+                <div class="joueur-poste">Milieu</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">55</span>
+                <span class="joueur-emoji">💚</span>
+                <div class="joueur-nom">Mohamed Hamdi</div>
+                <div class="joueur-poste">Milieu</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">-</span>
+                <span class="joueur-emoji">💚</span>
+                <div class="joueur-nom">Saad Kabah</div>
+                <div class="joueur-poste">Milieu</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">91</span>
+                <span class="joueur-emoji">⚽</span>
+                <div class="joueur-nom">Yassine Jabrane</div>
+                <div class="joueur-poste">Attaquant</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">98</span>
+                <span class="joueur-emoji">⚽</span>
+                <div class="joueur-nom">Brahim Ait Hammou</div>
+                <div class="joueur-poste">Attaquant</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">97</span>
+                <span class="joueur-emoji">⚽</span>
+                <div class="joueur-nom">Soufiane Jazouli</div>
+                <div class="joueur-poste">Attaquant</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">77</span>
+                <span class="joueur-emoji">⚽</span>
+                <div class="joueur-nom">Mohssine Abba</div>
+                <div class="joueur-poste">Attaquant</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">26</span>
+                <span class="joueur-emoji">⚽</span>
+                <div class="joueur-nom">Amine Aghou</div>
+                <div class="joueur-poste">Attaquant</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">62</span>
+                <span class="joueur-emoji">⚽</span>
+                <div class="joueur-nom">Reda Aberdi</div>
+                <div class="joueur-poste">Attaquant</div>
+            </div>
+            <div class="joueur-card">
+                <span class="joueur-numero">17</span>
+                <span class="joueur-emoji">⚽</span>
+                <div class="joueur-nom">Salah-Eddine Essalehy</div>
+                <div class="joueur-poste">Attaquant</div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>À Propos du Club</h3>
+                <p>Olympic Dcheira est un club de football prestigieux de la Botola Pro marocaine. Fondé en 1940, le club représente l'excellence sportive et l'engagement communautaire</p>
+            </div>
+            <div class="footer-col">
+                <h3>Liens rapide</h3>
+                <ul>
+                    <li><a href="index.html#store">Boutique</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="index.html">Home</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Nous suivre</h3>
+                <ul>
+                    <li><a href="https://www.instagram.com/olympic_dcheira_store/" target="_blank">Instagram Store</a></li>
+                    <li><a href="https://www.instagram.com/olympic.dcheira/" target="_blank">Instagram Club</a></li>
+                    <li><a href="https://www.facebook.com/odstore62/?locale=fr_FR" target="_blank">Facebook store</a></li>
+                    <li><a href="https://www.facebook.com/odofficielle1958/?locale=fr_FR" target="_blank">Facebook Club</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Nous Contacter</h3>
+                <p>📞 +212 6XX XXX XXX</p>
+                <p>📧 contact@olympicdcheira.ma</p>
+                <p>📍 Dcheira El Jihadia, Inezgane</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Olympic Dcheira — Tous droits réservés | Boutique Officielle</p>
+        </div>
+    </footer>
+</body>
+</html>
