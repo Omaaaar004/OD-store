@@ -22,6 +22,8 @@ let cart = JSON.parse(localStorage.getItem('od_cart')) || [];
 document.addEventListener('DOMContentLoaded', () => {
   updateCartUI();
   setupNavigation();
+  setupScrollEffect();
+  setupRevealEffect();
   
   // If we are on the store page, init products
   if (document.getElementById('productsGrid')) {
@@ -31,14 +33,77 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- NAVIGATION ---
 function setupNavigation() {
+  const navLinksList = document.querySelector('.nav-links');
+  if (!navLinksList) return;
+
+  // Create sliding background element
+  const bg = document.createElement('div');
+  bg.className = 'nav-links-bg';
+  navLinksList.appendChild(bg);
+
+  const links = navLinksList.querySelectorAll('a');
   const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-  const navLinks = document.querySelectorAll('.nav-links a');
-  
-  navLinks.forEach(link => {
-    const linkPath = link.getAttribute('href');
-    if (linkPath === currentPath) {
+
+  function moveBg(el) {
+    bg.style.width = `${el.offsetWidth}px`;
+    bg.style.left = `${el.offsetLeft}px`;
+    bg.style.opacity = '1';
+  }
+
+  links.forEach(link => {
+    // Set active state
+    if (link.getAttribute('href') === currentPath || 
+       (currentPath === 'index.html' && link.getAttribute('href') === '#store')) {
       link.classList.add('active');
+      setTimeout(() => moveBg(link), 100); // Initial position
     }
+
+    link.addEventListener('mouseenter', (e) => moveBg(e.target));
+  });
+
+  navLinksList.addEventListener('mouseleave', () => {
+    const activeLink = navLinksList.querySelector('a.active');
+    if (activeLink) {
+      moveBg(activeLink);
+    } else {
+      bg.style.opacity = '0';
+    }
+  });
+}
+
+function setupScrollEffect() {
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  });
+}
+
+function setupRevealEffect() {
+  const observerOptions = {
+    threshold: 0.15,
+    rootMargin: "0px 0px -50px 0px"
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        // Unobserve after revealing to save performance
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  const elementsToReveal = document.querySelectorAll('.reveal-blur, .premium-card, .section-header');
+  elementsToReveal.forEach(el => {
+    if (!el.classList.contains('reveal-blur')) {
+      el.classList.add('reveal-blur');
+    }
+    observer.observe(el);
   });
 }
 
@@ -195,6 +260,9 @@ function updateCartCount() {
   countElement.textContent = count;
   if (count > 0) {
     countElement.classList.add('show');
+    countElement.classList.remove('pulse');
+    void countElement.offsetWidth; // Trigger reflow
+    countElement.classList.add('pulse');
   } else {
     countElement.classList.remove('show');
   }
