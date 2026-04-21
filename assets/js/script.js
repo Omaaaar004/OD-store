@@ -51,7 +51,7 @@ function renderProducts(productsToShow) {
 
   productsToShow.forEach(product => {
     const card = document.createElement('div');
-    card.className = 'product-card';
+    card.className = 'premium-card product-card';
     card.onclick = () => openProductModal(product.id);
     
     const media = product.image 

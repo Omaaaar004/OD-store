@@ -228,8 +228,8 @@ nav {
 
 .ticker-inner {
   display: flex;
-  gap: 0;
-  animation: scrollTicker 20s linear infinite;
+  width: max-content;
+  animation: scrollTicker 40s linear infinite;
   white-space: nowrap;
 }
 
@@ -248,8 +248,10 @@ nav {
   flex-shrink: 0;
 }
 
-/* --- COMMON UI COMPONENTS --- */
-.section-label {
+/* --- UI COMPONENTS --- */
+
+/* Badges */
+.badge {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 12px;
   font-weight: 700;
@@ -257,13 +259,22 @@ nav {
   text-transform: uppercase;
   color: var(--vert);
   display: inline-block;
-  padding: 6px 16px;
-  border: 1px solid var(--vert);
+  padding: 6px 20px;
+  border: 2px solid var(--vert);
   border-radius: 50px;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.badge-outline {
+  border-width: 1px;
+  padding: 6px 16px;
   margin-bottom: 1rem;
 }
 
-.section-heading {
+/* Typography */
+.section-title {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: clamp(32px, 5vw, 56px);
   font-weight: 900;
@@ -271,11 +282,43 @@ nav {
   line-height: 1;
   letter-spacing: -1px;
   margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
 }
 
-.section-heading span {
-  color: var(--vert);
+.section-title span, .section-title .vert { color: var(--vert); }
+
+.title-large { font-size: clamp(48px, 10vw, 100px); letter-spacing: -2px; }
+.title-xl { font-size: clamp(56px, 12vw, 140px); line-height: 0.95; }
+
+/* Cards Base */
+.premium-card {
+  background: linear-gradient(135deg, var(--gris-fonce) 0%, var(--gris-sombre) 100%);
+  border: 2px solid var(--gris-surface);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
+
+.premium-card:hover {
+  border-color: var(--vert);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px var(--vert-clair);
+}
+
+.premium-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, var(--vert-clair) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.premium-card:hover::after { opacity: 1; }
+
 
 .btn-primary {
   background: var(--vert);
@@ -326,58 +369,6 @@ nav {
   transform: translateY(-3px);
 }
 
-/* --- PAGE HEADER --- */
-.page-header {
-  margin-top: 70px;
-  padding: 5rem 2rem 3rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.page-header::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 800px 400px at 50% 50%, var(--vert-clair) 0%, transparent 60%);
-  animation: pulseBg 6s ease-in-out infinite;
-}
-
-@keyframes pulseBg {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.9; }
-}
-
-.page-tag {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--vert);
-  display: inline-block;
-  padding: 6px 20px;
-  border: 2px solid var(--vert);
-  border-radius: 50px;
-  margin-bottom: 1.5rem;
-  position: relative;
-  z-index: 1;
-}
-
-.page-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(48px, 10vw, 100px);
-  font-weight: 900;
-  text-transform: uppercase;
-  line-height: 1;
-  letter-spacing: -2px;
-  position: relative;
-  z-index: 1;
-}
-
-.page-title span {
-  color: var(--vert);
-}
 
 /* --- CART SIDEBAR --- */
 .cart-overlay {
@@ -750,34 +741,6 @@ footer {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.hero-tag {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--vert);
-  margin-bottom: 1.5rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 20px;
-  border: 2px solid var(--vert);
-  border-radius: 50px;
-}
-
-.hero-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(56px, 12vw, 140px);
-  font-weight: 900;
-  line-height: 0.95;
-  text-transform: uppercase;
-  letter-spacing: -2px;
-  margin-bottom: 1.5rem;
-}
-
-.hero-title .vert { color: var(--vert); }
-.hero-title .blanc { color: var(--blanc); }
 
 .hero-subtitle {
   font-size: 20px;
@@ -803,30 +766,6 @@ footer {
 .section-header {
   max-width: 1200px;
   margin: 0 auto 4rem;
-}
-
-.section-tag {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--vert);
-  margin-bottom: 1rem;
-  display: inline-block;
-  padding: 6px 16px;
-  border: 1px solid var(--vert);
-  border-radius: 50px;
-}
-
-.section-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(40px, 7vw, 72px);
-  font-weight: 900;
-  text-transform: uppercase;
-  line-height: 1;
-  letter-spacing: -1px;
-  margin-top: 1rem;
 }
 
 .filters {
@@ -873,18 +812,7 @@ footer {
 }
 
 .product-card {
-  background: linear-gradient(135deg, var(--gris-fonce) 0%, var(--gris-sombre) 100%);
-  border: 2px solid var(--gris-surface);
-  overflow: hidden;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-}
-
-.product-card:hover {
-  border-color: var(--vert);
-  transform: translateY(-8px);
-  box-shadow: 0 20px 50px var(--vert-clair);
 }
 
 .product-image {
@@ -1019,18 +947,8 @@ footer {
 }
 
 .trust-card {
-  background: linear-gradient(135deg, var(--gris-fonce) 0%, var(--gris-sombre) 100%);
-  border: 2px solid var(--gris-surface);
   padding: 3rem 2rem;
   text-align: center;
-  border-radius: 12px;
-  transition: all 0.3s;
-}
-
-.trust-card:hover {
-  border-color: var(--vert);
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 179, 65, 0.1);
 }
 
 .trust-icon {
@@ -1181,19 +1099,9 @@ footer {
 }
 
 .stat-card {
-  background: linear-gradient(135deg, var(--gris-fonce) 0%, var(--gris-sombre) 100%);
-  border: 2px solid var(--gris-surface);
-  border-radius: 12px;
   padding: 2.5rem 2rem;
   text-align: center;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   animation: fadeInUp 0.8s ease-out forwards;
-}
-
-.stat-card:hover {
-  border-color: var(--vert);
-  transform: translateY(-10px) scale(1.05);
-  box-shadow: 0 20px 50px rgba(0, 179, 65, 0.2);
 }
 
 .stat-number {
@@ -1227,38 +1135,17 @@ footer {
 }
 
 .palmares-card {
-  background: linear-gradient(135deg, var(--gris-fonce) 0%, var(--gris-sombre) 100%);
-  border: 1px solid var(--gris-surface);
-  border-radius: 15px;
   padding: 2.5rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   gap: 1.5rem;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
   animation: fadeInUp 0.8s ease-out forwards;
 }
 
-.palmares-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, var(--vert-clair) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.5s;
-}
-
 .palmares-card:hover {
-  border-color: var(--vert);
   transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 25px 50px rgba(0, 179, 65, 0.2);
-}
-
-.palmares-card:hover::before {
-  opacity: 1;
 }
 
 .palmares-icon {
@@ -1320,33 +1207,12 @@ footer {
 }
 
 .staff-card {
-  background: linear-gradient(135deg, var(--gris-fonce) 0%, var(--gris-sombre) 100%);
-  border: 2px solid var(--gris-surface);
-  border-radius: 12px;
   padding: 2.5rem 2rem;
   text-align: center;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  position: relative;
-  overflow: hidden;
 }
 
 .staff-card:hover {
-  border-color: var(--vert);
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 179, 65, 0.15);
-}
-
-.staff-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, var(--vert-clair) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.4s;
-}
-
-.staff-card:hover::after {
-  opacity: 1;
 }
 
 .staff-avatar {
@@ -1403,33 +1269,12 @@ footer {
 }
 
 .joueur-card {
-  background: linear-gradient(135deg, var(--gris-fonce) 0%, var(--gris-sombre) 100%);
-  border: 2px solid var(--gris-surface);
-  border-radius: 12px;
   padding: 2rem 1.5rem;
   text-align: center;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  position: relative;
-  overflow: hidden;
 }
 
 .joueur-card:hover {
-  border-color: var(--vert);
   transform: translateY(-10px) scale(1.05);
-  box-shadow: 0 20px 40px rgba(0, 179, 65, 0.15);
-}
-
-.joueur-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, var(--vert-clair) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.4s;
-}
-
-.joueur-card:hover::after {
-  opacity: 1;
 }
 
 .joueur-numero {
@@ -1561,17 +1406,13 @@ footer {
 .contact-info { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2.5rem; }
 
 .info-card {
-  background: linear-gradient(135deg, var(--gris-fonce) 0%, var(--gris-sombre) 100%);
-  border: 2px solid var(--gris-surface);
-  border-radius: 8px;
   padding: 1.5rem;
   display: flex;
   align-items: center;
   gap: 1.2rem;
-  transition: all 0.3s;
 }
 
-.info-card:hover { border-color: var(--vert); transform: translateX(5px); }
+.info-card:hover { transform: translateX(5px); }
 
 .info-icon { font-size: 28px; flex-shrink: 0; }
 
