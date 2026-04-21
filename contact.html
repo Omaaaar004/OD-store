@@ -1,258 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Olympic Dcheira | Contact</title>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --vert: #00B341;
-      --vert-fonce: #008f33;
-      --vert-clair: #00ff6622;
-      --blanc: #ffffff;
-      --gris-fonce: #1a1a1a;
-      --gris-sombre: #0a0a0a;
-      --gris-surface: #242424;
-      --gris-text: #b0b0b0;
-      --gris-light: #707070;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: linear-gradient(135deg, var(--gris-sombre) 0%, #0d0d0d 100%);
-      color: var(--blanc);
-      font-family: 'Barlow', sans-serif;
-      line-height: 1.6;
-    }
-
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: var(--gris-sombre); }
-    ::-webkit-scrollbar-thumb { background: var(--vert); border-radius: 4px; }
-
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2rem; height: 70px;
-      background: linear-gradient(180deg, rgba(10,10,10,0.98) 0%, rgba(10,10,10,0.95) 100%);
-      backdrop-filter: blur(10px);
-      border-bottom: 2px solid var(--vert);
-      box-shadow: 0 4px 20px rgba(0,179,65,0.15);
-    }
-    .nav-brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
-    .nav-logo { width: 50px; height: 50px; display: flex; align-items: center; overflow: hidden; }
-    .nav-logo img { width: 100%; height: 100%; object-fit: contain; }
-    .nav-text {
-      font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
-      font-size: 20px; letter-spacing: 2px; text-transform: uppercase; color: var(--blanc);
-    }
-    .nav-text span { color: var(--vert); }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a {
-      text-decoration: none; color: var(--gris-text); font-size: 12px;
-      font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
-      transition: all 0.3s; position: relative;
-    }
-    .nav-links a::after {
-      content: ''; position: absolute; bottom: -5px; left: 0;
-      width: 0; height: 2px; background: var(--vert); transition: width 0.3s;
-    }
-    .nav-links a:hover { color: var(--vert); }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-links a.active { color: var(--vert); }
-    .nav-links a.active::after { width: 100%; }
-    .cart-btn {
-      background: none; border: 2px solid var(--vert); color: var(--vert);
-      padding: 10px 20px; border-radius: 6px; cursor: pointer;
-      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
-      font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase;
-      transition: all 0.3s; display: flex; align-items: center; gap: 0.7rem;
-      text-decoration: none;
-    }
-    .cart-btn:hover { background: var(--vert-clair); transform: translateY(-2px); }
-
-    /* PAGE HEADER */
-    .page-header {
-      margin-top: 70px; padding: 5rem 2rem 3rem;
-      text-align: center; position: relative; overflow: hidden;
-    }
-    .page-header::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse 800px 400px at 50% 50%, var(--vert-clair) 0%, transparent 60%);
-      animation: pulse 6s ease-in-out infinite;
-    }
-    @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:0.9} }
-    .page-tag {
-      font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700;
-      letter-spacing: 4px; text-transform: uppercase; color: var(--vert);
-      display: inline-block; padding: 6px 20px;
-      border: 2px solid var(--vert); border-radius: 50px; margin-bottom: 1.5rem;
-      position: relative; z-index: 1;
-    }
-    .page-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(48px, 10vw, 100px); font-weight: 900;
-      text-transform: uppercase; line-height: 1; letter-spacing: -2px;
-      position: relative; z-index: 1;
-    }
-    .page-title span { color: var(--vert); }
-
-    /* TICKER */
-    .ticker {
-      background: linear-gradient(90deg, var(--vert) 0%, #00ff6b 100%);
-      color: var(--blanc); padding: 0.8rem 0; overflow: hidden;
-      border-top: 3px solid rgba(255,255,255,0.3);
-      border-bottom: 3px solid rgba(255,255,255,0.3);
-    }
-    .ticker-inner { display: flex; gap: 0; animation: scroll 20s linear infinite; white-space: nowrap; }
-    @keyframes scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-    .ticker-item {
-      font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
-      font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
-      padding: 0 2.5rem; flex-shrink: 0;
-    }
-
-    /* MAIN */
-    .main { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
-
-    .contact-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
-    }
-
-    /* FORMULAIRE */
-    .section-label {
-      font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700;
-      letter-spacing: 4px; text-transform: uppercase; color: var(--vert);
-      display: inline-block; padding: 5px 16px;
-      border: 1px solid var(--vert); border-radius: 50px; margin-bottom: 1rem;
-    }
-    .section-heading {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(32px, 5vw, 52px); font-weight: 900;
-      text-transform: uppercase; line-height: 1; letter-spacing: -1px;
-      margin-bottom: 0.8rem;
-    }
-    .section-heading span { color: var(--vert); }
-    .section-sub { color: var(--gris-text); font-size: 15px; margin-bottom: 2.5rem; }
-
-    .form-group { margin-bottom: 1.5rem; }
-    .form-group label {
-      display: block; font-family: 'Barlow Condensed', sans-serif;
-      font-size: 12px; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--vert); margin-bottom: 0.5rem;
-    }
-    .form-group input, .form-group textarea, .form-group select {
-      width: 100%; background: var(--gris-fonce);
-      border: 2px solid var(--gris-surface); border-radius: 6px;
-      color: var(--blanc); padding: 14px 18px;
-      font-family: 'Barlow', sans-serif; font-size: 15px;
-      transition: all 0.3s; outline: none;
-    }
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-      border-color: var(--vert); box-shadow: 0 0 0 3px var(--vert-clair);
-    }
-    .form-group textarea { resize: vertical; min-height: 140px; }
-    .form-group select option { background: var(--gris-fonce); }
-
-    .submit-btn {
-      width: 100%; background: linear-gradient(90deg, var(--vert) 0%, #00ff6b 100%);
-      color: var(--blanc); border: none; padding: 16px;
-      font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
-      font-size: 15px; letter-spacing: 2px; text-transform: uppercase;
-      cursor: pointer; transition: all 0.3s; border-radius: 6px;
-      box-shadow: 0 8px 20px var(--vert-clair);
-    }
-    .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 30px var(--vert-clair); }
-
-    .success-msg {
-      display: none; background: var(--vert-clair); border: 2px solid var(--vert);
-      border-radius: 8px; padding: 1rem 1.5rem; margin-top: 1rem;
-      font-weight: 600; color: var(--vert); text-align: center;
-    }
-
-    /* INFOS CONTACT */
-    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2.5rem; }
-
-    .info-card {
-      background: linear-gradient(135deg, var(--gris-fonce) 0%, var(--gris-sombre) 100%);
-      border: 2px solid var(--gris-surface); border-radius: 8px;
-      padding: 1.5rem; display: flex; align-items: center; gap: 1.2rem;
-      transition: all 0.3s;
-    }
-    .info-card:hover { border-color: var(--vert); transform: translateX(5px); }
-    .info-icon { font-size: 28px; flex-shrink: 0; }
-    .info-label {
-      font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700;
-      letter-spacing: 2px; text-transform: uppercase; color: var(--vert); margin-bottom: 0.2rem;
-    }
-    .info-value { font-size: 15px; font-weight: 500; color: var(--blanc); }
-
-    /* SOCIAL BUTTONS */
-    .social-title {
-      font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700;
-      letter-spacing: 3px; text-transform: uppercase; color: var(--gris-text);
-      margin-bottom: 1rem;
-    }
-    .social-buttons { display: flex; flex-direction: column; gap: 1rem; }
-
-    .social-btn {
-      display: flex; align-items: center; gap: 1rem;
-      padding: 14px 20px; border-radius: 8px; text-decoration: none;
-      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
-      font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase;
-      transition: all 0.3s; border: 2px solid transparent;
-    }
-    .social-btn:hover { transform: translateY(-3px); }
-
-    .btn-whatsapp {
-      background: rgba(37,211,102,0.12); border-color: #25D366; color: #25D366;
-    }
-    .btn-whatsapp:hover { background: rgba(37,211,102,0.25); box-shadow: 0 8px 25px rgba(37,211,102,0.2); }
-
-    .btn-instagram {
-      background: rgba(225,48,108,0.12); border-color: #E1306C; color: #E1306C;
-    }
-    .btn-instagram:hover { background: rgba(225,48,108,0.25); box-shadow: 0 8px 25px rgba(225,48,108,0.2); }
-
-    .btn-facebook {
-      background: rgba(24,119,242,0.12); border-color: #1877F2; color: #1877F2;
-    }
-    .btn-facebook:hover { background: rgba(24,119,242,0.25); box-shadow: 0 8px 25px rgba(24,119,242,0.2); }
-
-    .social-btn-icon { font-size: 22px; }
-
-    /* FOOTER */
-    footer {
-      background: linear-gradient(180deg, var(--gris-fonce) 0%, var(--gris-sombre) 100%);
-      border-top: 3px solid var(--vert); padding: 4rem 2rem; margin-top: 4rem;
-    }
-    .footer-content {
-      max-width: 1200px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 3rem; margin-bottom: 3rem;
-    }
-    .footer-col h3 {
-      font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
-      text-transform: uppercase; letter-spacing: 2px;
-      margin-bottom: 1.5rem; color: var(--vert); font-size: 16px;
-    }
-    .footer-col p, .footer-col li { color: var(--gris-text); font-size: 14px; margin-bottom: 0.8rem; line-height: 1.6; }
-    .footer-col ul { list-style: none; }
-    .footer-col a { color: var(--gris-text); text-decoration: none; transition: all 0.3s; }
-    .footer-col a:hover { color: var(--vert); }
-    .footer-bottom { border-top: 2px solid var(--gris-surface); padding-top: 2rem; text-align: center; color: var(--gris-light); font-size: 13px; max-width: 1200px; margin: 0 auto; }
-
-    @media (max-width: 768px) {
-      nav { padding: 0 1rem; }
-      .nav-links { display: none; }
-      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-    }
-  </style>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
+
 <body>
   <nav>
     <a href="contact.html" class="nav-brand">
@@ -266,7 +26,35 @@
       <li><a href="index.html#store">Boutique</a></li>
       <li><a href="club.html">Le Club</a></li>
     </ul>
+    <div class="nav-right">
+      <button class="cart-btn" onclick="toggleCart()">
+        <i class="fa-solid fa-cart-shopping"></i> Panier
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
   </nav>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h2>Mon Panier</h2>
+      <button class="cart-close" onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">
+        <div class="cart-empty-icon">🛒</div>
+        <p>Votre panier est vide</p>
+      </div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span class="cart-total-label">Total:</span>
+        <span class="cart-total-amount" id="cartTotal">0 DH</span>
+      </div>
+      <button class="checkout-btn">Procéder au Paiement</button>
+    </div>
+  </div>
 
   <div class="page-header">
     <div class="page-tag">📞 On est là pour vous</div>
@@ -328,7 +116,8 @@
       <div>
         <div class="section-label">Infos Directes</div>
         <h2 class="section-heading">Retrouvez<span>-nous</span></h2>
-        <p class="section-sub" style="margin-bottom:2rem;">Vous pouvez aussi nous joindre directement via WhatsApp ou nos réseaux sociaux.</p>
+        <p class="section-sub" style="margin-bottom:2rem;">Vous pouvez aussi nous joindre directement via WhatsApp ou
+          nos réseaux sociaux.</p>
         <div class="contact-info">
           <div class="info-card">
             <div class="info-icon">📞</div>
@@ -348,7 +137,7 @@
             <div class="info-icon">📍</div>
             <div>
               <div class="info-label">Adresse</div>
-              <div class="info-value">Dcheira El Jihadia, Agadir</div>
+              <div class="info-value">Dcheira El Jihadia, Inezgane</div>
             </div>
           </div>
           <div class="info-card">
@@ -379,7 +168,8 @@
     <div class="footer-content">
       <div class="footer-col">
         <h3>À Propos du Club</h3>
-        <p>Olympic Dcheira est un club de football prestigieux de la Botola Pro marocaine. Fondé en 1940, le club représente l'excellence sportive.</p>
+        <p>Olympic Dcheira est un club de football prestigieux de la Botola Pro marocaine. Fondé en 1940, le club
+          représente l'excellence sportive.</p>
       </div>
       <div class="footer-col">
         <h3>Liens Rapides</h3>
@@ -407,6 +197,7 @@
       <p>&copy; 2025 Olympic Dcheira — Tous droits réservés | Boutique Officielle</p>
     </div>
   </footer>
+  <script src="assets/js/script.js"></script>
   <script>
     function sendMessage() {
       const nom = document.getElementById('nom').value.trim();
@@ -425,6 +216,6 @@
       setTimeout(() => { successMsg.style.display = 'none'; }, 4000);
     }
   </script>
-
 </body>
+
 </html>
