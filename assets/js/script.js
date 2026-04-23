@@ -22,6 +22,7 @@ let cart = JSON.parse(localStorage.getItem('od_cart')) || [];
 document.addEventListener('DOMContentLoaded', () => {
   updateCartUI();
   setupNavigation();
+  setupMobileMenu(); // Add this
   setupScrollEffect();
   setupRevealEffect();
   
@@ -67,6 +68,49 @@ function setupNavigation() {
       moveBg(activeLink);
     } else {
       bg.style.opacity = '0';
+    }
+  });
+
+  // Close menu when a link is clicked (for mobile)
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinksList.classList.remove('open');
+      const icon = document.querySelector('.menu-toggle i');
+      if (icon) {
+        icon.classList.remove('fa-xmark');
+        icon.classList.add('fa-bars');
+      }
+    });
+  });
+}
+
+function setupMobileMenu() {
+  window.toggleMenu = function() {
+    const navLinks = document.querySelector('.nav-links');
+    const icon = document.querySelector('.menu-toggle i');
+    if (!navLinks) return;
+
+    navLinks.classList.toggle('open');
+    
+    // Change icon between bars and xmark
+    if (icon) {
+      if (navLinks.classList.contains('open')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-xmark');
+      } else {
+        icon.classList.remove('fa-xmark');
+        icon.classList.add('fa-bars');
+      }
+    }
+  };
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    const navLinks = document.querySelector('.nav-links');
+    const menuToggle = document.querySelector('.menu-toggle');
+    if (navLinks && navLinks.classList.contains('open') && 
+        !navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+      toggleMenu();
     }
   });
 }
