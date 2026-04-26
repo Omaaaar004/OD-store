@@ -1895,3 +1895,808 @@ footer {
   transform: translateY(0);
 }
 
+/* --- TICKETING SYSTEM --- */
+.matches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.match-card {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.match-header {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.match-competition {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--vert);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.match-date {
+  font-size: 12px;
+  color: var(--gris-text);
+  font-weight: 500;
+}
+
+.match-body {
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.teams-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.team {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.team-logo-small {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+}
+
+.team-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.match-vs {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  color: var(--vert);
+  font-style: italic;
+}
+
+.match-info-box {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.match-info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 13px;
+  color: var(--gris-text);
+}
+
+.match-info-item i {
+  color: var(--vert);
+}
+
+.match-footer {
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: center;
+}
+
+/* Ticket Options Section */
+.ticket-options {
+  margin-top: 6rem;
+}
+
+.ticket-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.ticket-type-card {
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ticket-type-card h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.ticket-price {
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--vert);
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+.ticket-price span {
+  font-size: 16px;
+  color: var(--blanc);
+}
+
+.ticket-features {
+  list-style: none;
+  margin: 1.5rem 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.ticket-features li {
+  font-size: 14px;
+  color: var(--gris-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.ticket-features li i {
+  color: var(--vert);
+  font-size: 12px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .teams-wrapper {
+    gap: 1rem;
+  }
+  .team-logo-small {
+    width: 45px;
+    height: 45px;
+  }
+  .team-name {
+    font-size: 14px;
+  }
+  .match-vs {
+    font-size: 18px;
+  }
+}
+/* --- ENHANCED TICKETING UI --- */
+.stadium-container {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 20px;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+.stadium-map { width: 100%; height: auto; display: block; }
+.stadium-zone { cursor: pointer; transition: all 0.3s ease; stroke: rgba(255, 255, 255, 0.1); stroke-width: 1; }
+.stadium-zone:hover { filter: brightness(1.3) drop-shadow(0 0 10px rgba(255, 255, 255, 0.2)); stroke: var(--blanc); stroke-width: 2; }
+
+/* Zone Colors (Corrected for OD Stadium) */
+.zone-atlas { fill: #2ecc71; }
+.zone-souss { fill: #2ecc71; }
+.zone-taroudant { fill: #2ecc71; }
+.zone-silver-ocean { fill: #e74c3c; }
+.zone-silver-taghazout { fill: #e74c3c; }
+.zone-gold { fill: #f1c40f; }
+
+.ticketing-layout {
+  display: flex;
+  gap: 3rem;
+  margin-top: 3rem;
+  align-items: flex-start;
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 992px) {
+  .ticketing-layout {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .stadium-side, .selection-side {
+    width: 100%;
+  }
+
+  .stadium-container {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .stadium-svg {
+    max-height: 350px;
+  }
+
+  .selection-side {
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 15px;
+    border: 1px solid var(--border);
+  }
+
+  .zone-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .page-header h1 { font-size: 2.5rem; }
+  
+  .ticket-modal {
+    width: 95%;
+    padding: 1.5rem;
+    margin: 10px;
+  }
+
+  .summary-row { font-size: 13px; }
+  .summary-total { font-size: 18px; }
+
+  .payment-methods {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row-double {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+.stadium-side {
+  flex: 1.5;
+}
+
+.selection-side {
+  flex: 1;
+  background: var(--gris-fonce);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  position: sticky;
+  top: 100px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.selection-title-small {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.zone-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.zone-option {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.zone-option:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.zone-option.active {
+  border-color: var(--vert);
+  background: rgba(0, 179, 65, 0.05);
+  box-shadow: 0 0 20px rgba(0, 179, 65, 0.1);
+}
+
+.zone-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.zone-price {
+  font-weight: 900;
+  color: var(--vert);
+}
+
+/* --- PREMIUM QUANTITY SELECTOR --- */
+.qty-control {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 1.2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.qty-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #888;
+}
+
+.qty-btns-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: #000;
+  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.qty-btn-ticket {
+  width: 35px;
+  height: 35px;
+  border: none;
+  background: #1a1a1a;
+  color: var(--blanc);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.qty-btn-ticket:hover {
+  background: var(--vert);
+  transform: translateY(-2px);
+}
+
+#ticketQty {
+  font-family: 'Barlow', sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  color: var(--blanc) !important;
+  min-width: 20px;
+  text-align: center;
+}
+
+.add-selection-btn {
+  width: 100%;
+  margin-top: 2rem;
+  padding: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  box-shadow: 0 10px 30px rgba(0, 179, 65, 0.3);
+}
+
+.reset-selection {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Enhanced Tooltip */
+.zone-tooltip {
+  position: absolute;
+  background: var(--blanc);
+  color: #1a1a1a;
+  border-radius: 12px;
+  min-width: 240px;
+  overflow: hidden;
+  box-shadow: 0 15px 45px rgba(0,0,0,0.6);
+  pointer-events: none;
+  z-index: 2000;
+  display: none;
+  transform: translate(-50%, -100%);
+  margin-top: -15px;
+  font-family: 'Barlow', sans-serif;
+  text-align: left;
+}
+
+.tooltip-header {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.tooltip-name {
+  font-weight: 900;
+  font-size: 20px;
+  color: #1a1a1a;
+}
+
+.tooltip-status-bar {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #666;
+}
+
+.tooltip-footer-bar {
+  background: var(--vert);
+  padding: 12px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--blanc);
+}
+
+.tooltip-cat {
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.tooltip-price {
+  font-weight: 900;
+  font-size: 18px;
+}
+
+@media (max-width: 1024px) {
+  .ticketing-layout {
+    flex-direction: column;
+  }
+  .selection-side {
+    width: 100%;
+    position: relative;
+    top: 0;
+  }
+}
+
+/* --- TICKET PAYMENT MODAL --- */
+.ticket-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(10px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  padding: 1rem;
+}
+
+.ticket-modal {
+  background: var(--gris-fonce);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 95vh;
+  overflow-y: auto;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.9);
+  animation: modalScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.close-t-modal {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 32px;
+  height: 32px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  color: #888;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  z-index: 100;
+}
+
+.close-t-modal:hover {
+  background: #e74c3c;
+  border-color: #e74c3c;
+  color: white;
+}
+
+.t-modal-header {
+  padding: 2rem 2.5rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.t-modal-header h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--blanc);
+}
+
+.t-modal-body {
+  padding: 2rem 2.5rem 2.5rem;
+}
+
+.order-summary {
+  background: rgba(255,255,255,0.03);
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--border);
+}
+
+/* Reset Selection Button */
+.reset-selection {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s;
+}
+
+.reset-selection:hover {
+  color: #e74c3c;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+  font-size: 14px;
+  color: var(--gris-text);
+}
+
+.summary-row strong {
+  color: var(--blanc);
+}
+
+.summary-total {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--vert);
+  display: flex;
+  justify-content: space-between;
+}
+
+.payment-methods {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.pay-method {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: var(--gris-sombre);
+}
+
+.pay-method i { font-size: 24px; }
+.pay-method span { font-size: 10px; font-weight: 700; text-transform: uppercase; }
+
+.pay-method:hover {
+  border-color: rgba(0, 179, 65, 0.5);
+}
+
+.pay-method.active {
+  border-color: var(--vert);
+  background: rgba(0, 179, 65, 0.1);
+  box-shadow: 0 0 15px rgba(0, 179, 65, 0.2);
+}
+
+/* Payment Form */
+.payment-form {
+  margin-top: 1.5rem;
+  display: none; /* Shown when method is selected */
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--blanc);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--vert);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.form-row-double {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.pay-now-btn {
+  width: 100%;
+  padding: 1.2rem;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+/* --- CUSTOM NOTIFICATIONS --- */
+.notification {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: var(--gris-sombre);
+  border: 1px solid var(--border);
+  color: var(--blanc);
+  padding: 1.2rem 2rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 5000;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  transform: translateY(150%);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.notification.show {
+  transform: translateY(0);
+}
+
+.notification.success {
+  border-left: 4px solid var(--vert);
+}
+
+.notification.error {
+  border-left: 4px solid #e74c3c;
+}
+
+.notification i {
+  font-size: 20px;
+}
+
+.notification.success i { color: var(--vert); }
+.notification.error i { color: #e74c3c; }
+
+/* --- STADIUM ZONE ANIMATIONS --- */
+.stadium-zone {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  stroke-linecap: round;
+}
+
+.stadium-zone:hover {
+  filter: brightness(1.3);
+  stroke-width: 4;
+}
+
+.stadium-zone.selected {
+  stroke-width: 10;
+  stroke: var(--blanc);
+  filter: drop-shadow(0 0 20px var(--vert));
+  stroke-dasharray: 20;
+  animation: zoneFlow 3s linear infinite;
+  opacity: 1;
+}
+
+@keyframes zoneFlow {
+  from { stroke-dashoffset: 40; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* --- SIDEBAR SELECTION ANIMATION --- */
+.zone-option {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.zone-option.active {
+  background: rgba(0, 179, 65, 0.15);
+  border-color: var(--vert);
+  transform: translateX(10px);
+  box-shadow: -5px 0 20px rgba(0, 179, 65, 0.2);
+}
+
+.zone-option.active::after {
+  content: '\f058'; /* FontAwesome Check Circle */
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  left: -25px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--vert);
+  font-size: 18px;
+  animation: checkSlide 0.4s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes checkSlide {
+  to { left: 15px; }
+}
+
+.zone-option.active .zone-label {
+  margin-left: 25px;
+  color: var(--blanc);
+  transition: all 0.4s;
+}

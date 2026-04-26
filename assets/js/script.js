@@ -268,7 +268,7 @@ window.addToCart = function(productId) {
 };
 
 window.updateQuantity = function(productId, change) {
-  const item = cart.find(item => item.id === productId);
+  const item = cart.find(item => item.id == productId);
   if (item) {
     item.quantity += change;
     if (item.quantity <= 0) {
@@ -281,7 +281,7 @@ window.updateQuantity = function(productId, change) {
 };
 
 window.removeFromCart = function(productId) {
-  cart = cart.filter(item => item.id !== productId);
+  cart = cart.filter(item => item.id != productId);
   saveCart();
   updateCartUI();
 };
@@ -291,6 +291,8 @@ function saveCart() {
 }
 
 function updateCartUI() {
+  // Sync memory cart with storage before updating UI
+  cart = JSON.parse(localStorage.getItem('od_cart')) || [];
   updateCartCount();
   renderCartItems();
   updateCartTotal();
@@ -326,21 +328,27 @@ function renderCartItems() {
     return;
   }
 
-  container.innerHTML = cart.map(item => `
-    <div class="cart-item">
-      <div class="cart-item-image">${item.emoji}</div>
-      <div class="cart-item-details">
-        <div class="cart-item-name">${item.name}</div>
-        <div class="cart-item-price">${item.price} DH</div>
-        <div class="cart-item-qty">
-          <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">−</button>
-          <div class="qty-display">${item.quantity}</div>
-          <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+  container.innerHTML = cart.map(item => {
+    const media = item.image 
+      ? `<img src="${item.image}" alt="${item.name}" style="width:100%;height:100%;object-fit:contain;">`
+      : `<span style="font-size: 40px;">${item.emoji}</span>`;
+
+    return `
+      <div class="cart-item">
+        <div class="cart-item-image">${media}</div>
+        <div class="cart-item-details">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">${item.price} DH</div>
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="updateQuantity('${item.id}', -1)">−</button>
+            <div class="qty-display">${item.quantity}</div>
+            <button class="qty-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
+          </div>
+          <button class="remove-item" onclick="removeFromCart('${item.id}')">Supprimer</button>
         </div>
-        <button class="remove-item" onclick="removeFromCart(${item.id})">Supprimer</button>
       </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 function updateCartTotal() {
@@ -368,45 +376,32 @@ window.scrollToStore = function() {
   }
 };
 
-function showNotification(message) {
+window.showNotification = function(message, type = 'success') {
   const notification = document.createElement('div');
-  notification.style.cssText = `
-    position: fixed;
-    bottom: 2rem;
-    left: 2rem;
-    background: linear-gradient(90deg, var(--vert), #00ff6b);
-    color: var(--blanc);
-    padding: 1rem 1.5rem;
-    border-radius: 6px;
-    font-weight: 700;
-    z-index: 300;
-    animation: slideInUp 0.3s ease-out;
-    box-shadow: 0 8px 25px var(--vert-clair);
-    letter-spacing: 1px;
-    font-family: 'Barlow Condensed', sans-serif;
+  notification.className = `notification ${type}`;
+  
+  const icon = type === 'success' 
+    ? '<i class="fa-solid fa-circle-check"></i>' 
+    : '<i class="fa-solid fa-circle-exclamation"></i>';
+
+  notification.innerHTML = `
+    ${icon}
+    <span>${message}</span>
   `;
-  notification.textContent = message;
+  
   document.body.appendChild(notification);
-
+  
+  // Show
+  setTimeout(() => notification.classList.add('show'), 100);
+  
+  // Hide & Remove
   setTimeout(() => {
-    notification.style.animation = 'slideOutDown 0.3s ease-out';
-    setTimeout(() => notification.remove(), 300);
-  }, 2500);
-}
-
-// Add animation keyframes dynamically if not in CSS
-const style = document.createElement('style');
-style.textContent = `
-  @keyframes slideInUp {
-    from { transform: translateY(100%); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-  @keyframes slideOutDown {
-    from { transform: translateY(0); opacity: 1; }
-    to { transform: translateY(100%); opacity: 0; }
-  }
-`;
-document.head.appendChild(style);
+    notification.classList.remove('show');
+    setTimeout(() => {
+      notification.remove();
+    }, 400);
+  }, 4000);
+};
 
 window.subscribeNewsletter = function() {
   const email = document.getElementById('newsletterEmail').value.trim();

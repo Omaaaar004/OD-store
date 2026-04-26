@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Billetterie | Olympic Dcheira</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+
+<body>
+  <!-- NavBar -->
+  <nav>
+    <a href="index.html" class="nav-brand">
+      <div class="nav-logo">
+        <img src="Olympique_dcheira_logo-removebg-preview.png" alt="Olympic Dcheira Logo">
+      </div>
+      <div class="nav-text">Olympic <span>Dcheira</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#store">Boutique</a></li>
+      <li><a href="billetterie.html" class="active">Billetterie</a></li>
+      <li><a href="club.html">Le Club</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="cart-btn" onclick="toggleCart()">
+        <i class="fa-solid fa-cart-shopping"></i> Panier
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="menu-toggle" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <main class="main">
+    <header class="page-header reveal-blur">
+      <div class="section-badge"><i class="fa-solid fa-ticket"></i> Billetterie Officielle</div>
+      <h1 class="section-title">Réservez vos <span>Places</span></h1>
+      <p class="hero-subtitle">Soutenez l'OD au Grand Stade d'Agadir (Adrar). Choisissez votre zone préférée.</p>
+    </header>
+
+    <!-- Interactive Ticketing Layout -->
+    <div class="ticketing-layout reveal-blur" id="ticketSection">
+
+      <!-- Stadium Map Side -->
+      <div class="stadium-side">
+        <div class="stadium-container">
+          <!-- Enhanced Tooltip -->
+          <div id="zoneTooltip" class="zone-tooltip">
+            <div class="tooltip-header">
+              <div class="tooltip-name" id="ttName">ZONE</div>
+            </div>
+            <div class="tooltip-status-bar">
+              <span><i class="fa-solid fa-user"></i> <span id="ttPlaces">Places</span> places disponibles</span>
+            </div>
+            <div class="tooltip-footer-bar" id="ttFooter">
+              <div class="tooltip-cat" id="ttCat">CAT-X</div>
+              <div class="tooltip-price" id="ttPrice">00 MAD</div>
+            </div>
+          </div>
+
+          <!-- STADIUM MAP SVG -->
+          <svg viewBox="0 0 800 500" class="stadium-svg" id="stadiumSvg">
+            <defs>
+              <radialGradient id="pitchGradient" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" style="stop-color:#3d7a36" />
+                <stop offset="100%" style="stop-color:#2d5a27" />
+              </radialGradient>
+            </defs>
+            <rect x="180" y="90" width="440" height="320" rx="160" fill="#34495e" opacity="0.4" />
+            <rect x="200" y="110" width="400" height="280" rx="140" fill="none" stroke="#5d6d7e" stroke-width="1" stroke-dasharray="5,5" />
+            <rect x="250" y="150" width="300" height="200" fill="url(#pitchGradient)" stroke="#fff" stroke-width="2" rx="5" />
+            <line x1="400" y1="150" x2="400" y2="350" stroke="#fff" stroke-width="1" />
+            <circle cx="400" cy="250" r="30" fill="none" stroke="#fff" stroke-width="1" />
+
+            <!-- SEATING BLOCKS -->
+            <path d="M220,420 L580,420 L560,470 L240,470 Z" class="stadium-zone zone-taroudant" onmouseenter="showEnhancedTooltip(event, 'Gradins Taroudant', 'CAT-2', 30, '#2ecc71', '15,420')" onmouseleave="hideTooltip()" onclick="selectZone('taroudant', 30)"/>
+            <path d="M630,120 C720,180 720,320 630,380 L680,400 C780,320 780,180 680,100 Z" class="stadium-zone zone-atlas" onmouseenter="showEnhancedTooltip(event, 'Virage Atlas (Supporters)', 'CAT-2', 30, '#2ecc71', '12,850')" onmouseleave="hideTooltip()" onclick="selectZone('atlas', 30)"/>
+            <path d="M170,120 C80,180 80,320 170,380 L120,400 C20,320 20,180 120,100 Z" class="stadium-zone zone-souss" onmouseenter="showEnhancedTooltip(event, 'Virage Souss (Guests)', 'CAT-3', 60, '#2ecc71', '10,200')" onmouseleave="hideTooltip()" onclick="selectZone('souss', 60)"/>
+            
+            <path d="M210,80 L345,80 L345,30 L180,30 C190,50 200,65 210,80 Z" class="stadium-zone zone-silver-ocean" onmouseenter="showEnhancedTooltip(event, 'Silver Océan', 'CAT-1', 60, '#e74c3c', '3,400')" onmouseleave="hideTooltip()" onclick="selectZone('silver-ocean', 60)"/>
+            <path d="M455,80 L590,80 C600,65 610,50 620,30 L455,30 Z" class="stadium-zone zone-silver-taghazout" onmouseenter="showEnhancedTooltip(event, 'Silver Taghazout', 'CAT-1', 60, '#e74c3c', '3,400')" onmouseleave="hideTooltip()" onclick="selectZone('silver-taghazout', 60)"/>
+
+            <path d="M350,80 L450,80 L450,20 L350,20 Z" class="stadium-zone zone-gold" onmouseenter="showEnhancedTooltip(event, 'Tribune d\'Honneur', 'GOLD VIP', 150, '#f1c40f', '850')" onmouseleave="hideTooltip()" onclick="selectZone('gold', 150)"/>
+            <text x="400" y="15" fill="#aaa" font-size="10" text-anchor="middle" font-weight="900" style="text-transform: uppercase; letter-spacing: 2px;">Tribune Officielle</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Selection Side Panel -->
+      <div class="selection-side">
+        <div class="selection-title-small"><i class="fa-solid fa-ticket-simple"></i> Choisir votre Zone</div>
+        <div class="zone-options">
+          <div class="zone-option" data-zone="gold" onclick="selectZone('gold', 150)">
+            <div class="zone-label"><span class="z-cat">GOLD VIP</span></div>
+            <div class="zone-price">150 Dhs</div>
+          </div>
+          <div class="zone-option" data-zone="silver-ocean" onclick="selectZone('silver-ocean', 60)">
+            <div class="zone-label"><span class="z-name">SILVER OCÉAN </span><span class="z-cat">CAT-1</span></div>
+            <div class="zone-price">60 Dhs</div>
+          </div>
+          <div class="zone-option" data-zone="silver-taghazout" onclick="selectZone('silver-taghazout', 60)">
+            <div class="zone-label"><span class="z-name">SILVER TAGHAZOUT </span><span class="z-cat">CAT-1</span></div>
+            <div class="zone-price">60 Dhs</div>
+          </div>
+          <div class="zone-option" data-zone="atlas" onclick="selectZone('atlas', 30)">
+            <div class="zone-label"><span class="z-name">VIRAGE ATLAS (Supporters OD) </span><span class="z-cat">CAT-2</span></div>
+            <div class="zone-price">30 Dhs</div>
+          </div>
+          <div class="zone-option" data-zone="taroudant" onclick="selectZone('taroudant', 30)">
+            <div class="zone-label"><span class="z-name">GRADINS TAROUDANT </span><span class="z-cat">CAT-2</span></div>
+            <div class="zone-price">30 Dhs</div>
+          </div>
+          <div class="zone-option" data-zone="souss" onclick="selectZone('souss', 60)">
+            <div class="zone-label"><span class="z-name">VIRAGE SOUSS (Guests) </span><span class="z-cat">CAT-3</span></div>
+            <div class="zone-price">60 Dhs</div>
+          </div>
+        </div>
+
+        <div class="qty-control">
+          <span class="qty-label">Quantité :</span>
+          <div class="qty-btns-wrapper">
+            <button class="qty-btn-ticket" onclick="updateTicketQty(-1)"><i class="fa-solid fa-minus"></i></button>
+            <span id="ticketQty">1</span>
+            <button class="qty-btn-ticket" onclick="updateTicketQty(1)"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+
+        <button class="btn-primary add-selection-btn" onclick="openTicketCheckout()">
+          <i class="fa-solid fa-credit-card"></i> PROCÉDER AU PAIEMENT
+        </button>
+
+        <button class="reset-selection" onclick="resetSelection()">
+          <i class="fa-solid fa-rotate-left"></i> Réinitialiser la sélection
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- PAYMENT MODAL -->
+  <div class="ticket-modal-overlay" id="ticketCheckoutModal">
+    <div class="ticket-modal">
+      <button class="close-t-modal" onclick="closeTicketCheckout()">✕</button>
+      <div class="t-modal-header"><h3>Finaliser l'Achat</h3></div>
+      <div class="t-modal-body">
+        <div class="order-summary">
+          <div class="summary-row"><span>Zone choisie:</span> <strong id="summaryZone">-</strong></div>
+          <div class="summary-row"><span>Quantité:</span> <strong id="summaryQty">1</strong></div>
+          <div class="summary-total"><span>Total à payer:</span> <span id="summaryTotal">0 DH</span></div>
+        </div>
+        <div class="selection-title-small">1. Mode de Paiement</div>
+        <div class="payment-methods">
+          <div class="pay-method" onclick="selectPayMethod('visa', this)">
+            <i class="fa-brands fa-cc-visa" style="font-size: 24px;"></i><span>VISA</span>
+          </div>
+          <div class="pay-method" onclick="selectPayMethod('mastercard', this)">
+            <i class="fa-brands fa-cc-mastercard" style="font-size: 24px;"></i><span>MASTERCARD</span>
+          </div>
+        </div>
+        <div id="cardDetailsForm" class="payment-form">
+          <div class="selection-title-small">2. Coordonnées Bancaires</div>
+          <div class="form-group"><label>Nom sur la carte</label><input type="text" id="cardName" placeholder="M. OMAR EL-GHALEM"></div>
+          <div class="form-group"><label>Numéro de carte</label><input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19"></div>
+          <div class="form-row-double">
+            <div class="form-group"><label>Expiration</label><input type="text" id="cardExp" placeholder="MM/AA" maxlength="5"></div>
+            <div class="form-group"><label>CVV</label><input type="password" id="cardCvv" placeholder="***" maxlength="3"></div>
+          </div>
+          <button class="btn-primary pay-now-btn" onclick="processTicketPayment()"><i class="fa-solid fa-lock"></i> PAYER <span id="finalTotalBtn">0 DH</span></button>
+          <p style="text-align: center; font-size: 10px; color: #888; margin-top: 10px;"><i class="fa-solid fa-shield-halved"></i> Paiement sécurisé SSL 256-bit</p>
+        </div>
+        <div id="paymentSuccessView" style="display: none; text-align: center; padding: 2rem 0;">
+          <div style="font-size: 60px; color: var(--vert); margin-bottom: 1.5rem;"><i class="fa-solid fa-circle-check"></i></div>
+          <h2 style="font-family: 'Barlow Condensed'; font-size: 32px; text-transform: uppercase; margin-bottom: 1rem;">Paiement Réussi !</h2>
+          <p style="color: #888; margin-bottom: 2rem;">Vos billets ont été validés avec succès.</p>
+          <button class="btn-primary" onclick="location.reload()">RETOUR À L'ACCUEIL</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/script.js"></script>
+  <script>
+    let selectedZone = null; let currentPrice = 0; let ticketQty = 1; let selectedMethod = null;
+    const tooltip = document.getElementById('zoneTooltip'); const ttName = document.getElementById('ttName'); const ttCat = document.getElementById('ttCat');
+    const ttPrice = document.getElementById('ttPrice'); const ttFooter = document.getElementById('ttFooter'); const ttPlaces = document.getElementById('ttPlaces');
+
+    function showEnhancedTooltip(e, name, cat, price, color, places) {
+      ttName.innerText = name; ttCat.innerText = cat; ttPrice.innerText = price + ' MAD'; ttPlaces.innerText = places || '0';
+      ttFooter.style.background = color || '#27ae60'; ttCat.style.color = '#ffffff'; ttPrice.style.color = '#ffffff';
+      tooltip.style.display = 'block'; updateTooltipPos(e);
+    }
+    function hideTooltip() { tooltip.style.display = 'none'; }
+    function updateTooltipPos(e) {
+      const container = document.querySelector('.stadium-container'); const rect = container.getBoundingClientRect();
+      tooltip.style.left = (e.clientX - rect.left) + 'px'; tooltip.style.top = (e.clientY - rect.top) + 'px';
+    }
+    document.getElementById('stadiumSvg').addEventListener('mousemove', updateTooltipPos);
+
+    function selectZone(zoneId, price) {
+      if (selectedZone === zoneId) { resetSelection(); return; }
+      selectedZone = zoneId; currentPrice = price;
+      document.querySelectorAll('.zone-option').forEach(opt => {
+        opt.classList.remove('active'); if (opt.dataset.zone === zoneId) opt.classList.add('active');
+      });
+      document.querySelectorAll('.stadium-zone').forEach(z => z.classList.remove('selected'));
+      const targetZone = document.querySelector('.zone-' + zoneId); if (targetZone) targetZone.classList.add('selected');
+    }
+
+    function resetSelection() {
+      selectedZone = null; currentPrice = 0; ticketQty = 1; document.getElementById('ticketQty').innerText = '1';
+      document.querySelectorAll('.zone-option').forEach(opt => opt.classList.remove('active'));
+      document.querySelectorAll('.stadium-zone').forEach(z => z.classList.remove('selected'));
+    }
+    function updateTicketQty(change) { ticketQty += change; if (ticketQty < 1) ticketQty = 1; document.getElementById('ticketQty').innerText = ticketQty; }
+    
+    function openTicketCheckout() {
+      if (!selectedZone) { showNotification('⚠️ Veuillez sélectionner une zone.', 'error'); return; }
+      document.getElementById('summaryZone').innerText = selectedZone.toUpperCase().replace(/-/g, ' ');
+      document.getElementById('summaryQty').innerText = ticketQty;
+      const total = (currentPrice * ticketQty);
+      document.getElementById('summaryTotal').innerText = total + ' DH';
+      document.getElementById('finalTotalBtn').innerText = total + ' DH';
+      document.getElementById('ticketCheckoutModal').style.display = 'flex';
+    }
+    function selectPayMethod(method, el) { selectedMethod = method; document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('active')); el.classList.add('active'); document.getElementById('cardDetailsForm').style.display = 'block'; }
+    function closeTicketCheckout() { document.getElementById('ticketCheckoutModal').style.display = 'none'; }
+    function processTicketPayment() {
+      const cardName = document.getElementById('cardName').value.trim();
+      const cardNumber = document.getElementById('cardNumber').value.trim();
+      const cardExp = document.getElementById('cardExp').value.trim();
+      const cardCvv = document.getElementById('cardCvv').value.trim();
+      if (!cardName || !cardNumber || !cardExp || !cardCvv) { showNotification('⚠️ Veuillez remplir tous les champs bancaires.', 'error'); return; }
+      if (cardNumber.length < 16) { showNotification('⚠️ Numéro de carte invalide.', 'error'); return; }
+      const payBtn = document.querySelector('.pay-now-btn'); payBtn.disabled = true; payBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> TRAITEMENT...';
+      setTimeout(() => {
+        document.getElementById('cardDetailsForm').style.display = 'none'; document.querySelector('.order-summary').style.display = 'none';
+        document.querySelector('.payment-methods').style.display = 'none'; document.getElementById('paymentSuccessView').style.display = 'block';
+        showNotification('🎉 Paiement réussi ! Vos billets sont validés.', 'success');
+      }, 2000);
+    }
+    document.getElementById('cardNumber').addEventListener('input', function (e) { e.target.value = e.target.value.replace(/[^\d]/g, '').replace(/(.{4})/g, '$1 ').trim(); });
+    document.getElementById('cardExp').addEventListener('input', function (e) {
+      let val = e.target.value.replace(/[^\d]/g, '');
+      if (val.length >= 2) {
+        let month = parseInt(val.substring(0, 2)); if (month > 12) month = 12; if (month === 0 && val.length >= 2) month = 1;
+        val = month.toString().padStart(2, '0') + val.substring(2, 4);
+      }
+      if (val.length >= 2 && e.inputType !== 'deleteContentBackward') { val = val.substring(0, 2) + '/' + val.substring(2, 4); }
+      e.target.value = val;
+    });
+  </script>
+</body>
+
+</html>
